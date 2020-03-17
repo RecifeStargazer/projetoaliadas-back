@@ -1,0 +1,545 @@
+swagger: "2.0"
+info:
+  description: "This api refers to aliada's project"
+  version: "1.0.0"
+  title: "Aliada API"
+  termsOfService: "tbd"
+  contact:
+    email: "carlos.swamy@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "aliadas"
+basePath: "/v1"
+tags:
+- name: "perfil"
+  description: "Operações sobre perfis de aliadas"
+#  externalDocs:
+#    description: "Find out more"
+#    url: "http://swagger.io"
+- name: "aliadas"
+  description: "Operações sobre serviços para as aliadas"
+#  externalDocs:
+#    description: "Find out more about our store"
+#    url: "http://swagger.io"
+schemes:
+- "https"
+- "http"
+
+paths:
+  /perfil:
+    post:
+      tags:
+      - "perfil"
+      summary: "Adiciona novo perfil de usuária, candidata ou aliada, à base de dados"
+      description: "Cria novo perfil"
+      operationId: "addProfile"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "userProfile"
+        description: "objeto de perfil"
+        required: true
+        schema:
+          $ref: "#/definitions/FirstTimeProfile"
+      responses:
+        200:
+          description: "perfil criado com sucesso"
+          schema:
+            $ref: "#/definitions/Profile"
+  
+    put:
+      tags:
+      - "perfil"
+      summary: "Edita perfil de usuária, candidata ou aliada"
+      description: "Edita perfil"
+      operationId: "editProfile"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "userProfile"
+        description: "objeto de perfil"
+        required: true
+        schema:
+          $ref: "#/definitions/FirstTimeProfile"
+      responses:
+        200:
+          description: "Perfil alterado com sucesso"
+          schema:
+            $ref: "#/definitions/Profile"
+            
+  /perfil/{Id}/deleteProFilePhoto:
+     delete:
+      tags:
+      - "perfil"
+      summary: "Deleta uma foto de perfil"
+      description: "Remove a foto de perfil do usuário da base de dados"
+      operationId: "deleteProFilePhoto"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "api_key"
+        in: "header"
+        required: false
+        type: "string"
+      - name: "Id"
+        in: "path"
+        description: "Id do perfil que possui a foto a ser deletada"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        400:
+          description: "ID não encontrado"
+        404:
+          description: "Foto não encontrada"
+            
+  /perfil/{Id}/uploadProfileImage:
+    post:
+      tags:
+      - "perfil"
+      summary: "upload da imagem de perfil "
+      description: ""
+      operationId: "uploadProFilePhoto"
+      consumes:
+      - "multipart/form-data"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of pet to update"
+        required: true
+        type: "integer"
+        format: "int64"
+      - name: "additionalMetadata"
+        in: "formData"
+        description: "Additional data to pass to server"
+        required: false
+        type: "string"
+      - name: "file"
+        in: "formData"
+        description: "file to upload"
+        required: false
+        type: "file"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        
+  /perfil/{Id}/getProfileImage:
+    get:
+      tags:
+      - "perfil"
+      summary: "Retorna a imagem de perfil"
+      description: "Retorna imagem de perfil"
+      operationId: "getProfileImage"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "Id do perfil da imagem"
+        required: true
+        type: "integer"
+        format: "int32"
+      produces:
+        - image/png
+        - image/gif
+        - image/jpeg
+      responses:
+        200:
+          description: OK    
+        
+  /aliadas/{Id}/seguidoras:
+    get:
+      tags:
+      - "aliadas"
+      summary: "Obtem lista de aliadas/seguidoras"
+      description: "obtém lista de aliadas pelo ID da candidata"
+      operationId: "getFollowers"
+      produces:
+      - "application/json"
+      parameters: 
+      - in: "path"
+        name: "Id"
+        description: "Id da candidata"
+        required: true
+        type: "integer"
+        format: "int32"
+      - in: "query"
+        name: "page"
+        type: "integer"
+        format: "int32"
+      - in: "query"
+        name: "perpage"
+        type: "integer"
+        format: "int32"
+      responses:
+        400:
+          description: "ID não encontrado"
+        404:
+          description: "Foto não encontrada"
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Profile"
+  
+  /aliadas/{Id}/seguidas:
+    get:
+      tags:
+      - "aliadas"
+      summary: "Obtem lista de candidatas seguidas"
+      description: "obtém lista de aliadas pelo ID da aliada"
+      operationId: "getSeguidas"
+      produces:
+      - "application/json"
+      parameters: 
+      - in: "path"
+        name: "Id"
+        description: "Id da seguidora"
+        required: true
+        type: "integer"
+        format: "int32"
+      - in: "query"
+        name: "page"
+        type: "integer"
+        format: "int32"
+      - in: "query"
+        name: "perpage"
+        type: "integer"
+        format: "int32"
+      responses:
+        400:
+          description: "ID não encontrado"
+        404:
+          description: "Foto não encontrada"
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Profile"
+              
+  /aliadas/{Id}/afins:
+    get:
+      tags:
+      - "aliadas"
+      summary: "Obtem lista de candidatas seguidas por afinidade & Id"
+      description: "obtém lista de candidatas seguidas pelo ID da aliada & Id"
+      operationId: "getCandidatasPorAfinidade"
+      produces:
+      - "application/json"
+      parameters: 
+      - in: "path"
+        name: "Id"
+        description: "Id da seguidora"
+        required: true
+        type: "integer"
+        format: "int32"
+      - in: "query"
+        name: "page"
+        type: "integer"
+        format: "int32"
+      - in: "query"
+        name: "perpage"
+        type: "integer"
+        format: "int32"
+      responses:
+        400:
+          description: "ID não encontrado"
+        404:
+          description: "Foto não encontrada"
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Profile"
+              
+  /aliadas/login:
+    get:
+      tags:
+      - "aliadas"
+      summary: "Logs user into the system"
+      description: ""
+      operationId: "loginAliada"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - name: "username"
+        in: "query"
+        description: "The user name for login"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "The password for login in clear text"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "string"
+          headers:
+            X-Rate-Limit:
+              type: "integer"
+              format: "int32"
+              description: "calls per hour allowed by the user"
+            X-Expires-After:
+              type: "string"
+              format: "date-time"
+              description: "date in UTC when token expires"
+        400:
+          description: "Invalid username/password supplied"
+          
+  /aliadas/logout:
+    get:
+      tags:
+      - "aliadas"
+      summary: "Logs out current logged in user session"
+      description: ""
+      operationId: "logoutAliada"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        default:
+          description: "successful operation"
+          
+  /aliadas/{Id}/missoes:
+    get:
+      tags:
+      - "aliadas"
+      summary: "Obtem lista de missoes da candidata seguida por Id"
+      description: "Obtem lista de missoes da candidata seguida por Id"
+      operationId: "getMissoesCandidata"
+      produces:
+      - "application/json"
+      parameters: 
+      - in: "path"
+        name: "Id"
+        description: "Id da candidata"
+        required: true
+        type: "integer"
+        format: "int32"
+      - in: "query"
+        name: "page"
+        type: "integer"
+        format: "int32"
+      - in: "query"
+        name: "perpage"
+        type: "integer"
+        format: "int32"
+      responses:
+        400:
+          description: "ID não encontrado"
+        404:
+          description: "Foto não encontrada"
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Profile"
+    
+    
+definitions:
+
+  Profile:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      userType:
+        type: "integer"
+      fullname: 
+        type: "string"
+      email:
+        type: "string"
+      profilePhotoId: 
+        type: "integer"
+        format: "int64"
+      profileDescription:
+        type: "string"
+        minLength: 0
+        maxLength: 300
+      cidadeAtuacao:
+        $ref: "#/definitions/LocalDeVotoCandidatura"
+      dadosAliada:
+        $ref: "#/definitions/DadosAliada"
+      dadosCandidata:
+        $ref: "#/definitions/DadosCandidata"
+        
+  FirstTimeProfile:
+    type: "object"
+    properties:
+      profile:
+        $ref: "#/definitions/Profile"
+      credenciais:
+        $ref: "#/definitions/AliadaAuthObj"
+        
+    
+        
+  LocalDeVotoCandidatura:
+    type: "object"
+    properties:
+      cidade: 
+        type: "string"
+      estado: 
+        type: "string"
+      estadoAbreviado: 
+        type: "string"
+        
+  MeiosContato:
+    type: "object"
+    properties:
+      telefone: 
+        type: "string"
+      redesSociais:
+        type: "array"
+        items:
+          type: "string"
+      emails:
+        type: "array"
+        items:
+          type: "string"
+        
+  MeiosColaboracao:
+    type: "object"
+    properties:
+      codigo:
+        type: "integer"
+        format: "int64"
+      titulo: 
+        type: "string"
+        minLength: 0
+        maxLength: 30
+      descricao: 
+        type: "string"
+        minLength: 0
+        maxLength: 200
+  
+  
+  RedeSocial:
+    type: "object"
+    properties:
+      codigo:
+        type: "integer"
+        format: "int32"
+      nome: 
+        type: "string"
+      linkPerfil: 
+        type: "string"
+      alias:
+        type: "string"
+  
+  Missoes:
+    type: "object"
+    properties:
+      titulo:
+        type: "string"
+        minLength: 0
+        maxLength: 50
+      descricao:
+        type: "string"
+        minLength: 0
+        maxLength: 300
+  
+  CausaSocial:
+    type: "object"
+    properties:
+      codigo:
+        type: "integer"
+        format: "int64"
+      titulo: 
+        type: "string"
+        minLength: 0
+        maxLength: 30
+      descricao: 
+        type: "string"
+        minLength: 0
+        maxLength: 200
+      codImagemIlutrativa:
+        type: "integer"
+        format: "int64"
+        
+  DadosAliada:
+    type: "object"
+    properties:
+      causasApoiadas:
+          type: "array"
+          items:
+            $ref: "#/definitions/CausaSocial"
+      meiosColaboracao:
+          type: "array"
+          items:
+            $ref: "#/definitions/MeiosColaboracao"   
+      candidatasApoiadas:
+          type: "array"
+          items:
+            $ref: "#/definitions/DadosCandidata"  
+            
+  DadosCandidata:
+    type: "object"
+    properties:
+      numeroCandidata:
+        type: "integer" 
+        format: "int32" 
+      redesSociais: 
+        type: "array"
+        items:
+          $ref: "#/definitions/RedeSocial"
+      causasApoiadas:
+        type: "array"
+        items:
+          $ref: "#/definitions/CausaSocial"
+      meiosDeContato:
+        type: "array"
+        items:
+          $ref: "#/definitions/MeiosContato"
+      meiosColaboracao:
+          type: "array"
+          items:
+            $ref: "#/definitions/MeiosColaboracao" 
+      missoesCandidatas:
+          type: "array"
+          items:
+            $ref: "#/definitions/Missoes" 
+      aliadas:
+        type: "array"
+        items:
+          $ref: "#/definitions/DadosAliada"  
+            
+  AliadaAuthObj:
+    type: "object"
+    properties:
+      aliasAliada:
+        type: "string"
+      PasswordAliada:
+        type: "string"
+        
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
