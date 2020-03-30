@@ -18,6 +18,7 @@ public class MeioColaboracao implements Serializable{
 	@Column(name = "id")
 	private Long id;
 
+	@Column(unique=true)
 	private String titulo;
 
 	private String descricao;

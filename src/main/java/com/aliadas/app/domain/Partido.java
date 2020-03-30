@@ -18,9 +18,10 @@ public class Partido implements Serializable {
 	@Column(name = "id")
 	private Long id;
 
+	@Column(unique=true)
 	private Integer numero;
 
-	private String titulo;
+	private String sigla;
 
 	private String descricao;
 
@@ -28,11 +29,11 @@ public class Partido implements Serializable {
 
 	}
 
-	public Partido(Long id, Integer numero, String titulo, String descricao) {
+	public Partido(Long id, Integer numero, String sigla, String descricao) {
 		super();
 		this.id = id;
 		this.numero = numero;
-		this.titulo = titulo;
+		this.sigla = sigla;
 		this.descricao = descricao;
 	}
 
@@ -52,12 +53,12 @@ public class Partido implements Serializable {
 		this.numero = numero;
 	}
 
-	public String getTitulo() {
-		return titulo;
+	public String getsigla() {
+		return sigla;
 	}
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setsigla(String sigla) {
+		this.sigla = sigla;
 	}
 
 	public String getDescricao() {
@@ -95,7 +96,7 @@ public class Partido implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Partido [id=" + id + ", numero=" + numero + ", titulo=" + titulo + ", descricao=" + descricao + "]";
+		return "Partido [id=" + id + ", numero=" + numero + ", sigla=" + sigla + ", descricao=" + descricao + "]";
 	}
 
 }

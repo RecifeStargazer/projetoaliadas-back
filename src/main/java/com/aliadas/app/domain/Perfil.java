@@ -2,6 +2,7 @@ package com.aliadas.app.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,7 +40,7 @@ public class Perfil implements Serializable {
 
 	private Boolean flagCompromisso;
 
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name = "cidade_id")
 	private Cidade cidade;
 

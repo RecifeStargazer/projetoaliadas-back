@@ -6,17 +6,11 @@ info:
   termsOfService: "tbd"
   contact:
     email: "carlos.swamy@gmail.com"
-  license:
-    name: "Apache 2.0"
-    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
 host: "aliadas"
 basePath: "/v1"
 tags:
 - name: "perfil"
   description: "Operações sobre perfis de aliadas"
-#  externalDocs:
-#    description: "Find out more"
-#    url: "http://swagger.io"
 - name: "aliadas"
   description: "Operações sobre serviços para as aliadas"
 #  externalDocs:
@@ -27,52 +21,299 @@ schemes:
 - "http"
 
 paths:
-  /perfil:
+
+  /utilidades/addMeioColaboracao:
+    post:
+      tags:
+      - "utilidades"
+      summary: "Adiciona novo meio de colaboracão"
+      description: "Adiciona novo meio de colaboracao à base de dados"
+      operationId: "addMeioColaboracao"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "meioColaboracao"
+        description: "objeto de meio de colaboracao"
+        required: true
+        schema:
+          $ref: "#/definitions/MeioColaboracao"
+      responses:
+        200:
+          description: "Meio de colaboracao criado com sucesso"
+          schema:
+            $ref: "#/definitions/MeioColaboracao"
+          
+  /utilidades/getMeiosColaboracao:
+    get:
+      tags:
+      - "utilidades"
+      summary: "Retorna lista de meio de colaboracao"
+      description: "Retorna lista com todos os meios de colaboracao do banco de dados"
+      operationId: "getMeiosColaboracao"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Lista recuperada com sucesso"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/MeioColaboracao"
+
+  /utilidades/addCausaSocial:
+    post:
+      tags:
+      - "utilidades"
+      summary: "Adiciona nova causa social"
+      description: "Adiciona nova causa social à base de dados"
+      operationId: "addCausaSocial"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "causaSocial"
+        description: "objeto de causa social"
+        required: true
+        schema:
+          $ref: "#/definitions/CausaSocial"
+      responses:
+        200:
+          description: "causa social criada com sucesso"
+          schema:
+            $ref: "#/definitions/CausaSocial"
+            
+  /utilidades/getCausasSociais:
+    get:
+      tags:
+      - "utilidades"
+      summary: "Retorna lista de causas sociais"
+      description: "Retorna lista com todas causas sociais do banco de dados"
+      operationId: "getCausasSociais"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Lista recuperada com sucesso"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/CausaSocial"
+              
+  /utilidades/getListaEstados:
+    get:
+      tags:
+      - "utilidades"
+      summary: "Retorna lista de estados"
+      description: "Retorna lista com todas os estados do brasil"
+      operationId: "getListaEstados"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Lista recuperada com sucesso"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Estado"
+              
+  /utilidades/{id_estado}/getListaCidadesPorEstado:
+    get:
+      tags:
+      - "utilidades"
+      summary: "Retorna lista de causas sociais"
+      description: "Retorna lista com todas causas sociais do banco de dados"
+      operationId: "getListaCidadesPorEstado"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id_estado"
+        in: "path"
+        description: "Id do estado cujas cidades serão retornadas"
+        required: true
+        type: "integer"
+        format: "int32"
+      - name: "primeira_letra"
+        in: "query"
+        description: "primeira letra para reduzir busca"
+        type: "string"
+      responses:
+        200:
+          description: "Lista recuperada com sucesso"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Cidade"
+            
+            
+  /perfilAliada:
     post:
       tags:
       - "perfil"
       summary: "Adiciona novo perfil de usuária, candidata ou aliada, à base de dados"
       description: "Cria novo perfil"
-      operationId: "addProfile"
+      operationId: "addPerfilAliada"
       consumes:
       - "application/json"
       produces:
       - "application/json"
       parameters:
       - in: "body"
-        name: "userProfile"
+        name: "perfil"
         description: "objeto de perfil"
         required: true
         schema:
-          $ref: "#/definitions/FirstTimeProfile"
+          $ref: "#/definitions/PerfilAliada"
       responses:
         200:
           description: "perfil criado com sucesso"
           schema:
-            $ref: "#/definitions/Profile"
-  
-    put:
+            $ref: "#/definitions/PerfilAliada"
+            
+  /perfilCandidata:
+    post:
       tags:
       - "perfil"
-      summary: "Edita perfil de usuária, candidata ou aliada"
-      description: "Edita perfil"
-      operationId: "editProfile"
+      summary: "Adiciona novo perfil de usuária, candidata ou aliada, à base de dados"
+      description: "Cria novo perfil"
+      operationId: "addPerfilCandidata"
       consumes:
       - "application/json"
       produces:
       - "application/json"
       parameters:
       - in: "body"
-        name: "userProfile"
+        name: "perfil"
         description: "objeto de perfil"
         required: true
         schema:
-          $ref: "#/definitions/FirstTimeProfile"
+          $ref: "#/definitions/PerfilCandidata"
+      responses:
+        200:
+          description: "perfil criado com sucesso"
+          schema:
+            $ref: "#/definitions/PerfilCandidata"  
+            
+  /perfilAliada/{id_aliada}:
+    get:
+      tags:
+      - "perfil"
+      summary: "Retorna o perfil de usuaria aliada"
+      description: "Retorna o perfil de usuaria aliada por id"
+      operationId: "getPerfilAliada"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id_aliada"
+        in: "path"
+        description: "Id do perfil a ser recuperado"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Perfil recuperado com sucesso"
+          schema:
+            $ref: "#/definitions/PerfilAliada"
+            
+  /perfilCandidata/{id_candidata}:
+    get:
+      tags:
+      - "perfil"
+      summary: "Retorna o perfil de usuaria candidata"
+      description: "Retorna o perfil de usuaria candidata por id"
+      operationId: "getPerfilCandidata"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id_candidata"
+        in: "path"
+        description: "Id do perfil a ser recuperado"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "Perfil recuperado com sucesso"
+          schema:
+            $ref: "#/definitions/PerfilCandidata"
+  
+  
+  /perfilAliada/{id}/editar:
+    put:
+      tags:
+      - "perfil"
+      summary: "Edita perfil de aliada"
+      description: "Edita perfil"
+      operationId: "editPerfilAliada"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id do perfil a ser editado"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "perfil"
+        description: "objeto de perfil"
+        required: true
+        schema:
+          $ref: "#/definitions/PerfilAliada"
       responses:
         200:
           description: "Perfil alterado com sucesso"
           schema:
-            $ref: "#/definitions/Profile"
+            $ref: "#/definitions/PerfilAliada"
+            
+  /perfilCandidata/{id}/editar:
+    put:
+      tags:
+      - "perfil"
+      summary: "Edita perfil de candidata"
+      description: "Edita perfil"
+      operationId: "editPerfilCandidata"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id do perfil a ser editado"
+        required: true
+        type: "integer"
+        format: "int64"
+      - in: "body"
+        name: "perfil"
+        description: "objeto de perfil"
+        required: true
+        schema:
+          $ref: "#/definitions/PerfilCandidata"
+      responses:
+        200:
+          description: "Perfil alterado com sucesso"
+          schema:
+            $ref: "#/definitions/PerfilCandidata"
             
   /perfil/{Id}/deleteProFilePhoto:
      delete:
@@ -85,10 +326,6 @@ paths:
       - "application/xml"
       - "application/json"
       parameters:
-      - name: "api_key"
-        in: "header"
-        required: false
-        type: "string"
       - name: "Id"
         in: "path"
         description: "Id do perfil que possui a foto a ser deletada"
@@ -132,8 +369,7 @@ paths:
       responses:
         200:
           description: "successful operation"
-          schema:
-            $ref: "#/definitions/ApiResponse"
+         
         
   /perfil/{Id}/getProfileImage:
     get:
@@ -157,18 +393,18 @@ paths:
         200:
           description: OK    
         
-  /aliadas/{Id}/seguidoras:
+  /candidatas/{id}/seguidoras:
     get:
       tags:
       - "aliadas"
       summary: "Obtem lista de aliadas/seguidoras"
       description: "obtém lista de aliadas pelo ID da candidata"
-      operationId: "getFollowers"
+      operationId: "getSeguidoras"
       produces:
       - "application/json"
       parameters: 
       - in: "path"
-        name: "Id"
+        name: "id"
         description: "Id da candidata"
         required: true
         type: "integer"
@@ -182,18 +418,14 @@ paths:
         type: "integer"
         format: "int32"
       responses:
-        400:
-          description: "ID não encontrado"
-        404:
-          description: "Foto não encontrada"
         200:
           description: "successful operation"
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Profile"
+              $ref: "#/definitions/PerfilAliada"
   
-  /aliadas/{Id}/seguidas:
+  /aliadas/{id}/seguidas:
     get:
       tags:
       - "aliadas"
@@ -204,7 +436,7 @@ paths:
       - "application/json"
       parameters: 
       - in: "path"
-        name: "Id"
+        name: "id"
         description: "Id da seguidora"
         required: true
         type: "integer"
@@ -227,13 +459,58 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Profile"
+              $ref: "#/definitions/PerfilCandidata"
+  
+  /aliadas/{id_candidata}/follow:
+    put:
+      tags:
+      - "aliadas"
+      summary: "Segue candidata por id"
+      description: "método para seguir candidata"
+      operationId: "seguirCandidata"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id_candidata"
+        description: "Id da candidata"
+        required: true
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "successful operation"
+          
+  /aliadas/{id_candidata}/unfollow:
+    put:
+      tags:
+      - "aliadas"
+      summary: "deixa de seguir candidata por id"
+      description: "método para deixar deseguir candidata"
+      operationId: "deixarDeSeguirCandidata"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "id_candidata"
+        description: "Id da candidata"
+        required: true
+        type: "integer"
+        format: "int32"
+      responses:
+        200:
+          description: "successful operation"
+      
               
   /aliadas/{Id}/afins:
     get:
       tags:
       - "aliadas"
-      summary: "Obtem lista de candidatas seguidas por afinidade & Id"
+      summary: "Obtem lista de candidatas por afinidade & Id"
       description: "obtém lista de candidatas seguidas pelo ID da aliada & Id"
       operationId: "getCandidatasPorAfinidade"
       produces:
@@ -241,7 +518,7 @@ paths:
       parameters: 
       - in: "path"
         name: "Id"
-        description: "Id da seguidora"
+        description: "Id da aliada"
         required: true
         type: "integer"
         format: "int32"
@@ -254,16 +531,12 @@ paths:
         type: "integer"
         format: "int32"
       responses:
-        400:
-          description: "ID não encontrado"
-        404:
-          description: "Foto não encontrada"
         200:
           description: "successful operation"
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Profile"
+              $ref: "#/definitions/PerfilCandidata"
               
   /aliadas/login:
     get:
@@ -351,48 +624,132 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Profile"
+              $ref: "#/definitions/PerfilUsuaria"
     
     
 definitions:
 
-  Profile:
+  PerfilUsuaria:
     type: "object"
     properties:
       id:
         type: "integer"
         format: "int64"
-      userType:
-        type: "integer"
-      fullname: 
-        type: "string"
-      email:
-        type: "string"
-      profilePhotoId: 
+      tipoUsuaria:
         type: "integer"
         format: "int64"
-      profileDescription:
+      email:
+        type: "string"
+      nomeCompleto: 
+        type: "string"
+      idFotoPerfil: 
+        type: "integer"
+        format: "int64"
+      flagAceiteCompromisso:
+        type: "boolean"
+      descricaoPerfil:
         type: "string"
         minLength: 0
         maxLength: 300
       cidadeAtuacao:
-        $ref: "#/definitions/LocalDeVotoCandidatura"
-      dadosAliada:
-        $ref: "#/definitions/DadosAliada"
-      dadosCandidata:
-        $ref: "#/definitions/DadosCandidata"
+        $ref: "#/definitions/LocalDeAtuacao"
         
-  FirstTimeProfile:
+  PerfilAliada:
+    allOf: 
+      - $ref: "#/definitions/PerfilUsuaria"
+      - type: "object"
+        properties:
+          jaMilitou:
+            type: "boolean"
+          filiadaPartido:
+            type: "boolean"
+          causasApoiadas:
+            type: "array"
+            items:
+              $ref: "#/definitions/CausaSocial"
+          meiosColaboracao:
+            type: "array"
+            items:
+              $ref: "#/definitions/MeioColaboracao"   
+          candidatasApoiadas:
+            type: "array"
+            items:
+              $ref: "#/definitions/PerfilCandidata"  
+              
+  PerfilCandidata:
+     allOf: 
+      - $ref: "#/definitions/PerfilUsuaria"
+      - type: "object"
+        properties:
+          primeiraCandidatura:
+            type: "boolean"
+          primeiroMandato:
+            type: "boolean"
+          numeroCandidata:
+            type: "integer" 
+            format: "int32" 
+          apelidoCandidata:
+            type: "string" 
+          cargoCandidata:
+            type: "string"
+          partido:
+            $ref: "#/definitions/Partido"
+          causasSociais:
+            type: "array"
+            items:
+              $ref: "#/definitions/CausaSocial"
+          meiosColaboracao:
+              type: "array"
+              items:
+                $ref: "#/definitions/MeioColaboracao" 
+          aliadas:
+            type: "array"
+            items:
+              $ref: "#/definitions/PerfilAliada" 
+          missoes:
+              type: "array"
+              items:
+                $ref: "#/definitions/Missoes" 
+          meiosContato:
+            type: "array"
+            items:
+              $ref: "#/definitions/MeioContato"
+          
+         
+  Partido:
     type: "object"
     properties:
-      profile:
-        $ref: "#/definitions/Profile"
-      credenciais:
-        $ref: "#/definitions/AliadaAuthObj"
+      numero:
+        type: "integer" 
+        format: "int32" 
+      titulo: 
+        type: "string"
+      descricao: 
+        type: "string"
+  
+  Estado:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int32"
+      nome: 
+        type: "string"
+      sigla:
+        type: "string"
         
+  Cidade:
+    type: "object"
+    properties: 
+      id: 
+        type: "integer"
+        format: "int32"
+      nome: 
+        type: "string"
+      estado:
+        $ref: "#/definitions/Estado"
     
-        
-  LocalDeVotoCandidatura:
+  LocalDeAtuacao:
     type: "object"
     properties:
       cidade: 
@@ -402,26 +759,24 @@ definitions:
       estadoAbreviado: 
         type: "string"
         
-  MeiosContato:
+  MeioContato:
     type: "object"
     properties:
-      telefone: 
+      tipo: 
         type: "string"
-      redesSociais:
-        type: "array"
-        items:
-          type: "string"
-      emails:
-        type: "array"
-        items:
-          type: "string"
+        minLength: 0
+        maxLength: 60
+      valor:
+        type: "string"
+        minLength: 0
+        maxLength: 200
         
-  MeiosColaboracao:
+  MeioColaboracao:
     type: "object"
     properties:
-      codigo:
+      id:
         type: "integer"
-        format: "int64"
+        format: "int32"
       titulo: 
         type: "string"
         minLength: 0
@@ -429,21 +784,7 @@ definitions:
       descricao: 
         type: "string"
         minLength: 0
-        maxLength: 200
-  
-  
-  RedeSocial:
-    type: "object"
-    properties:
-      codigo:
-        type: "integer"
-        format: "int32"
-      nome: 
-        type: "string"
-      linkPerfil: 
-        type: "string"
-      alias:
-        type: "string"
+        maxLength: 300
   
   Missoes:
     type: "object"
@@ -460,9 +801,9 @@ definitions:
   CausaSocial:
     type: "object"
     properties:
-      codigo:
+      id:
         type: "integer"
-        format: "int64"
+        format: "int32"
       titulo: 
         type: "string"
         minLength: 0
@@ -470,76 +811,6 @@ definitions:
       descricao: 
         type: "string"
         minLength: 0
-        maxLength: 200
-      codImagemIlutrativa:
-        type: "integer"
-        format: "int64"
+        maxLength: 300
         
-  DadosAliada:
-    type: "object"
-    properties:
-      causasApoiadas:
-          type: "array"
-          items:
-            $ref: "#/definitions/CausaSocial"
-      meiosColaboracao:
-          type: "array"
-          items:
-            $ref: "#/definitions/MeiosColaboracao"   
-      candidatasApoiadas:
-          type: "array"
-          items:
-            $ref: "#/definitions/DadosCandidata"  
-            
-  DadosCandidata:
-    type: "object"
-    properties:
-      numeroCandidata:
-        type: "integer" 
-        format: "int32" 
-      redesSociais: 
-        type: "array"
-        items:
-          $ref: "#/definitions/RedeSocial"
-      causasApoiadas:
-        type: "array"
-        items:
-          $ref: "#/definitions/CausaSocial"
-      meiosDeContato:
-        type: "array"
-        items:
-          $ref: "#/definitions/MeiosContato"
-      meiosColaboracao:
-          type: "array"
-          items:
-            $ref: "#/definitions/MeiosColaboracao" 
-      missoesCandidatas:
-          type: "array"
-          items:
-            $ref: "#/definitions/Missoes" 
-      aliadas:
-        type: "array"
-        items:
-          $ref: "#/definitions/DadosAliada"  
-            
-  AliadaAuthObj:
-    type: "object"
-    properties:
-      aliasAliada:
-        type: "string"
-      PasswordAliada:
-        type: "string"
-        
-  ApiResponse:
-    type: "object"
-    properties:
-      code:
-        type: "integer"
-        format: "int32"
-      type:
-        type: "string"
-      message:
-        type: "string"
-externalDocs:
-  description: "Find out more about Swagger"
-  url: "http://swagger.io"
+  

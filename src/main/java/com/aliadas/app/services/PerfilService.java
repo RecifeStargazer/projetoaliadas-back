@@ -1,15 +1,21 @@
 package com.aliadas.app.services;
 
-import com.aliadas.app.api.model.FirstTimeProfile;
-import com.aliadas.app.api.model.Profile;
+import com.aliadas.app.api.model.CausaSocial;
+import com.aliadas.app.api.model.MeioColaboracao;
+import com.aliadas.app.api.model.PerfilAliada;
+import com.aliadas.app.api.model.PerfilUsuaria;
 
 public interface PerfilService {
 	
-	Profile addProfile(FirstTimeProfile userProfile);
+	PerfilAliada addPerfilAliada(PerfilAliada userProfile);
 	
 	Void deleteProFilePhoto(Long id, String apiKey);
 	
-	Profile editProfile(FirstTimeProfile userProfile);
+	PerfilUsuaria editProfile(PerfilUsuaria userProfile);
 	
 	String getProfileImage(Integer id);
+
+	CausaSocial addCausaSocial(CausaSocial causaSocial);
+
+	MeioColaboracao addMeioColaboracao(MeioColaboracao meioColaboracao);
 }

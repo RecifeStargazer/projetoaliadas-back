@@ -5,7 +5,7 @@ import java.util.Date;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Missao {
+public class MissaoCandidata {
 
 	private String titulo;
 
@@ -15,11 +15,11 @@ public class Missao {
 
 	private Date dataFim;
 
-	public Missao() {
+	public MissaoCandidata() {
 
 	}
 
-	public Missao(String titulo, String descricao, Date dataInicio, Date dataFim) {
+	public MissaoCandidata(String titulo, String descricao, Date dataInicio, Date dataFim) {
 		super();
 		this.titulo = titulo;
 		this.descricao = descricao;
@@ -78,7 +78,7 @@ public class Missao {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Missao other = (Missao) obj;
+		MissaoCandidata other = (MissaoCandidata) obj;
 		if (dataFim == null) {
 			if (other.dataFim != null)
 				return false;
