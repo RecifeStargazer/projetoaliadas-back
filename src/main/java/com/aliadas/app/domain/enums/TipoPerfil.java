@@ -32,7 +32,7 @@ public enum TipoPerfil {
 			}
 		}
 		
-		throw new IllegalArgumentException("Código Inválido : "+codigo);		
+		throw new IllegalArgumentException("Código de Tipo de Usuário Inválido : "+codigo);		
 	}
 
 }

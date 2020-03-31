@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aliadas.app.api.UtilidadesApi;
-import com.aliadas.app.api.model.CausaSocial;
-import com.aliadas.app.api.model.Cidade;
-import com.aliadas.app.api.model.Estado;
-import com.aliadas.app.api.model.MeioColaboracao;
+import com.aliadas.app.api.model.CausaSocialDTO;
+import com.aliadas.app.api.model.CidadeDTO;
+import com.aliadas.app.api.model.EstadoDTO;
+import com.aliadas.app.api.model.MeioColaboracaoDTO;
+import com.aliadas.app.api.model.PartidoDTO;
 import com.aliadas.app.services.UtilidadeService;
 
 @RestController
@@ -29,55 +30,66 @@ public class UtilidadeResource implements UtilidadesApi {
 	@Override
 	@RequestMapping(value = "/utilidades/addCausaSocial", produces = { "application/json" }, consumes = {
 			"application/json" }, method = RequestMethod.POST)
-	public ResponseEntity<CausaSocial> addCausaSocial(@Valid CausaSocial causaSocial) {
-		CausaSocial causaSocialRetorno;
+	public ResponseEntity<CausaSocialDTO> addCausaSocial(@Valid CausaSocialDTO causaSocial) {
+		CausaSocialDTO causaSocialRetorno;
 		causaSocial.setId(null);
 		causaSocialRetorno = utilidadeService.addCausaSocial(causaSocial);
-		return new ResponseEntity<CausaSocial>(causaSocialRetorno, HttpStatus.OK);
+		return new ResponseEntity<CausaSocialDTO>(causaSocialRetorno, HttpStatus.OK);
 	}
 
 	@Override
 	@RequestMapping(value = "/utilidades/addMeioColaboracao", produces = { "application/json" }, consumes = {
 			"application/json" }, method = RequestMethod.POST)
-	public ResponseEntity<MeioColaboracao> addMeioColaboracao(@Valid MeioColaboracao meioColaboracao) {
-		MeioColaboracao meioColaboracaoRetorno;
+	public ResponseEntity<MeioColaboracaoDTO> addMeioColaboracao(@Valid MeioColaboracaoDTO meioColaboracao) {
+		MeioColaboracaoDTO meioColaboracaoRetorno;
 		meioColaboracao.setId(null);
 		meioColaboracaoRetorno = utilidadeService.addMeioColaboracao(meioColaboracao);
-		return new ResponseEntity<MeioColaboracao>(meioColaboracaoRetorno, HttpStatus.OK);
+		return new ResponseEntity<MeioColaboracaoDTO>(meioColaboracaoRetorno, HttpStatus.OK);
 	}
 
 	@Override
-	@RequestMapping(value = "/utilidades/getCausasSociais", produces = { "application/json" }, method = RequestMethod.GET)
-	public ResponseEntity<List<CausaSocial>> getCausasSociais() {
-		List<CausaSocial> listaCausaSocialRetorno;
+	@RequestMapping(value = "/utilidades/getCausasSociais", produces = {
+			"application/json" }, method = RequestMethod.GET)
+	public ResponseEntity<List<CausaSocialDTO>> getCausasSociais() {
+		List<CausaSocialDTO> listaCausaSocialRetorno;
 		listaCausaSocialRetorno = utilidadeService.getCausasSociais();
-		return new ResponseEntity<List<CausaSocial>>(listaCausaSocialRetorno, HttpStatus.OK);
+		return new ResponseEntity<List<CausaSocialDTO>>(listaCausaSocialRetorno, HttpStatus.OK);
 	}
 
 	@Override
-	@RequestMapping(value = "/utilidades/getMeiosColaboracao", produces = { "application/json" }, method = RequestMethod.GET)
-	public ResponseEntity<List<MeioColaboracao>> getMeiosColaboracao() {
-		List<MeioColaboracao> listaMeiosColaboracaoRetorno;
+	@RequestMapping(value = "/utilidades/getMeiosColaboracao", produces = {
+			"application/json" }, method = RequestMethod.GET)
+	public ResponseEntity<List<MeioColaboracaoDTO>> getMeiosColaboracao() {
+		List<MeioColaboracaoDTO> listaMeiosColaboracaoRetorno;
 		listaMeiosColaboracaoRetorno = utilidadeService.getMeiosColaboracao();
-		return new ResponseEntity<List<MeioColaboracao>>(listaMeiosColaboracaoRetorno, HttpStatus.OK);
+		return new ResponseEntity<List<MeioColaboracaoDTO>>(listaMeiosColaboracaoRetorno, HttpStatus.OK);
 	}
 
 	@Override
-	@RequestMapping(value = "/utilidades/getListaEstados", produces = { "application/json" },  method = RequestMethod.GET)
-	public ResponseEntity<List<Estado>> getListaEstados() {
-		List<Estado> listaEstadoRetorno;
+	@RequestMapping(value = "/utilidades/getListaEstados", produces = {
+			"application/json" }, method = RequestMethod.GET)
+	public ResponseEntity<List<EstadoDTO>> getListaEstados() {
+		List<EstadoDTO> listaEstadoRetorno;
 		listaEstadoRetorno = utilidadeService.getListaEstados();
-		return new ResponseEntity<List<Estado>>(listaEstadoRetorno, HttpStatus.OK);
+		return new ResponseEntity<List<EstadoDTO>>(listaEstadoRetorno, HttpStatus.OK);
 	}
 
 	@Override
 	@RequestMapping(value = "/utilidades/{id_estado}/getListaCidadesPorEstado", produces = {
 			"application/json" }, method = RequestMethod.GET)
-	public ResponseEntity<List<Cidade>> getListaCidadesPorEstado(@PathVariable("id_estado") Integer idEstado,
+	public ResponseEntity<List<CidadeDTO>> getListaCidadesPorEstado(@PathVariable("id_estado") Integer idEstado,
 			@RequestParam(value = "primeira_letra", required = false) String primeiraLetra) {
-		List<Cidade> listaCidadeRetorno;
+		List<CidadeDTO> listaCidadeRetorno;
 		listaCidadeRetorno = utilidadeService.getListaCidadesPorEstado(idEstado, primeiraLetra);
-		return new ResponseEntity<List<Cidade>>(listaCidadeRetorno, HttpStatus.OK);
+		return new ResponseEntity<List<CidadeDTO>>(listaCidadeRetorno, HttpStatus.OK);
+	}
+
+	@Override
+	@RequestMapping(value = "/utilidades/getPartidos", produces = { "application/json" }, method = RequestMethod.GET)
+	public ResponseEntity<List<PartidoDTO>> getPartidos() {
+		List<PartidoDTO> listaPartidoRetorno;
+		listaPartidoRetorno = utilidadeService.getListaPartidos();
+		return new ResponseEntity<List<PartidoDTO>>(listaPartidoRetorno, HttpStatus.OK);
 	}
 
 }

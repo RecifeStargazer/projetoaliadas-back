@@ -2,7 +2,6 @@ package com.aliadas.app.domain;
 
 import java.io.Serializable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,9 +24,10 @@ public class Perfil implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
+	@Column(nullable=false)
 	private Integer tipoUsuaria;
 
-//	@Column(unique = true)
+	//@Column(unique = true)
 	private String email;
 
 	private String nomeCompleto;
@@ -40,7 +40,7 @@ public class Perfil implements Serializable {
 
 	private Boolean flagCompromisso;
 
-	@ManyToOne(cascade = {CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name = "cidade_id")
 	private Cidade cidade;
 
@@ -70,9 +70,12 @@ public class Perfil implements Serializable {
 		this.id = id;
 	}
 
-	public TipoPerfil getTipoUsuaria() {
-		return TipoPerfil.toEnum(tipoUsuaria);
+	public Integer getTipoUsuaria() {
+		return tipoUsuaria;
 	}
+//	public TipoPerfil getTipoUsuaria() {
+//		return TipoPerfil.toEnum(tipoUsuaria);
+//	}
 
 	public void setTipoUsuaria(TipoPerfil tipoUsuaria) {
 		this.tipoUsuaria = tipoUsuaria.getCodigo();

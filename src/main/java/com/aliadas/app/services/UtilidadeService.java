@@ -2,22 +2,25 @@ package com.aliadas.app.services;
 
 import java.util.List;
 
-import com.aliadas.app.api.model.CausaSocial;
-import com.aliadas.app.api.model.Cidade;
-import com.aliadas.app.api.model.Estado;
-import com.aliadas.app.api.model.MeioColaboracao;
+import com.aliadas.app.api.model.CausaSocialDTO;
+import com.aliadas.app.api.model.CidadeDTO;
+import com.aliadas.app.api.model.EstadoDTO;
+import com.aliadas.app.api.model.MeioColaboracaoDTO;
+import com.aliadas.app.api.model.PartidoDTO;
 
 public interface UtilidadeService {
 
-	CausaSocial addCausaSocial(CausaSocial causaSocial);
+	CausaSocialDTO addCausaSocial(CausaSocialDTO causaSocial);
 
-	MeioColaboracao addMeioColaboracao(MeioColaboracao meioColaboracao);
+	MeioColaboracaoDTO addMeioColaboracao(MeioColaboracaoDTO meioColaboracao);
 
-	List<CausaSocial> getCausasSociais();
+	List<CausaSocialDTO> getCausasSociais();
 
-	List<MeioColaboracao> getMeiosColaboracao();
+	List<MeioColaboracaoDTO> getMeiosColaboracao();
 
-	List<Estado> getListaEstados();
+	List<EstadoDTO> getListaEstados();
 
-	List<Cidade> getListaCidadesPorEstado(Integer idEstado, String primeiraLetra);
+	List<CidadeDTO> getListaCidadesPorEstado(Integer idEstado, String primeiraLetra);
+
+	List<PartidoDTO> getListaPartidos();
 }

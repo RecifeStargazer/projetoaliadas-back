@@ -39,12 +39,12 @@ paths:
         description: "objeto de meio de colaboracao"
         required: true
         schema:
-          $ref: "#/definitions/MeioColaboracao"
+          $ref: "#/definitions/MeioColaboracaoDTO"
       responses:
         200:
           description: "Meio de colaboracao criado com sucesso"
           schema:
-            $ref: "#/definitions/MeioColaboracao"
+            $ref: "#/definitions/MeioColaboracaoDTO"
           
   /utilidades/getMeiosColaboracao:
     get:
@@ -63,7 +63,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/MeioColaboracao"
+              $ref: "#/definitions/MeioColaboracaoDTO"
 
   /utilidades/addCausaSocial:
     post:
@@ -82,12 +82,12 @@ paths:
         description: "objeto de causa social"
         required: true
         schema:
-          $ref: "#/definitions/CausaSocial"
+          $ref: "#/definitions/CausaSocialDTO"
       responses:
         200:
-          description: "causa social criada com sucesso"
+          description: "causa social criada com sucessoDTO"
           schema:
-            $ref: "#/definitions/CausaSocial"
+            $ref: "#/definitions/CausaSocialDTO"
             
   /utilidades/getCausasSociais:
     get:
@@ -106,8 +106,27 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/CausaSocial"
-              
+              $ref: "#/definitions/CausaSocialDTO"
+  
+  /utilidades/getPartidos:
+    get:
+      tags:
+      - "utilidades"
+      summary: "Retorna lista de partidos"
+      description: "Retorna lista com todos os partidos do banco de dados"
+      operationId: "getPartidos"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "Lista recuperada com sucesso"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/PartidoDTO"
+  
   /utilidades/getListaEstados:
     get:
       tags:
@@ -125,7 +144,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Estado"
+              $ref: "#/definitions/EstadoDTO"
               
   /utilidades/{id_estado}/getListaCidadesPorEstado:
     get:
@@ -155,7 +174,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Cidade"
+              $ref: "#/definitions/CidadeDTO"
             
             
   /perfilAliada:
@@ -175,12 +194,12 @@ paths:
         description: "objeto de perfil"
         required: true
         schema:
-          $ref: "#/definitions/PerfilAliada"
+          $ref: "#/definitions/PerfilAliadaDTO"
       responses:
         200:
           description: "perfil criado com sucesso"
           schema:
-            $ref: "#/definitions/PerfilAliada"
+            $ref: "#/definitions/PerfilAliadaDTO"
             
   /perfilCandidata:
     post:
@@ -199,12 +218,12 @@ paths:
         description: "objeto de perfil"
         required: true
         schema:
-          $ref: "#/definitions/PerfilCandidata"
+          $ref: "#/definitions/PerfilCandidataDTO"
       responses:
         200:
           description: "perfil criado com sucesso"
           schema:
-            $ref: "#/definitions/PerfilCandidata"  
+            $ref: "#/definitions/PerfilCandidataDTO"  
             
   /perfilAliada/{id_aliada}:
     get:
@@ -228,7 +247,7 @@ paths:
         200:
           description: "Perfil recuperado com sucesso"
           schema:
-            $ref: "#/definitions/PerfilAliada"
+            $ref: "#/definitions/PerfilAliadaDTO"
             
   /perfilCandidata/{id_candidata}:
     get:
@@ -252,7 +271,7 @@ paths:
         200:
           description: "Perfil recuperado com sucesso"
           schema:
-            $ref: "#/definitions/PerfilCandidata"
+            $ref: "#/definitions/PerfilCandidataDTO"
   
   
   /perfilAliada/{id}/editar:
@@ -278,12 +297,12 @@ paths:
         description: "objeto de perfil"
         required: true
         schema:
-          $ref: "#/definitions/PerfilAliada"
+          $ref: "#/definitions/PerfilAliadaDTO"
       responses:
         200:
           description: "Perfil alterado com sucesso"
           schema:
-            $ref: "#/definitions/PerfilAliada"
+            $ref: "#/definitions/PerfilAliadaDTO"
             
   /perfilCandidata/{id}/editar:
     put:
@@ -308,12 +327,12 @@ paths:
         description: "objeto de perfil"
         required: true
         schema:
-          $ref: "#/definitions/PerfilCandidata"
+          $ref: "#/definitions/PerfilCandidataDTO"
       responses:
         200:
           description: "Perfil alterado com sucesso"
           schema:
-            $ref: "#/definitions/PerfilCandidata"
+            $ref: "#/definitions/PerfilCandidataDTO"
             
   /perfil/{Id}/deleteProFilePhoto:
      delete:
@@ -423,7 +442,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/PerfilAliada"
+              $ref: "#/definitions/PerfilAliadaDTO"
   
   /aliadas/{id}/seguidas:
     get:
@@ -459,7 +478,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/PerfilCandidata"
+              $ref: "#/definitions/PerfilCandidataDTO"
   
   /aliadas/{id_candidata}/follow:
     put:
@@ -536,7 +555,7 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/PerfilCandidata"
+              $ref: "#/definitions/PerfilCandidataDTO"
               
   /aliadas/login:
     get:
@@ -615,27 +634,20 @@ paths:
         type: "integer"
         format: "int32"
       responses:
-        400:
-          description: "ID não encontrado"
-        404:
-          description: "Foto não encontrada"
         200:
           description: "successful operation"
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/PerfilUsuaria"
+              $ref: "#/definitions/MissoesDTO"
     
     
 definitions:
 
-  PerfilUsuaria:
+  PerfilDTO:
     type: "object"
     properties:
       id:
-        type: "integer"
-        format: "int64"
-      tipoUsuaria:
         type: "integer"
         format: "int64"
       email:
@@ -645,40 +657,38 @@ definitions:
       idFotoPerfil: 
         type: "integer"
         format: "int64"
-      flagAceiteCompromisso:
+      flagCompromisso:
         type: "boolean"
       descricaoPerfil:
         type: "string"
         minLength: 0
         maxLength: 300
-      cidadeAtuacao:
-        $ref: "#/definitions/LocalDeAtuacao"
+      cidade:
+        $ref: "#/definitions/CidadeDTO"
         
-  PerfilAliada:
+  PerfilAliadaDTO:
     allOf: 
-      - $ref: "#/definitions/PerfilUsuaria"
+      - $ref: "#/definitions/PerfilDTO"
       - type: "object"
         properties:
-          jaMilitou:
+          fezMilitancia:
             type: "boolean"
-          filiadaPartido:
+          filiadaAPartido:
             type: "boolean"
+          partido:
+            $ref: "#/definitions/PartidoDTO"
           causasApoiadas:
             type: "array"
             items:
-              $ref: "#/definitions/CausaSocial"
+              $ref: "#/definitions/CausaSocialDTO"
           meiosColaboracao:
             type: "array"
             items:
-              $ref: "#/definitions/MeioColaboracao"   
-          candidatasApoiadas:
-            type: "array"
-            items:
-              $ref: "#/definitions/PerfilCandidata"  
+              $ref: "#/definitions/MeioColaboracaoDTO"   
               
-  PerfilCandidata:
+  PerfilCandidataDTO:
      allOf: 
-      - $ref: "#/definitions/PerfilUsuaria"
+      - $ref: "#/definitions/PerfilDTO"
       - type: "object"
         properties:
           primeiraCandidatura:
@@ -693,41 +703,40 @@ definitions:
           cargoCandidata:
             type: "string"
           partido:
-            $ref: "#/definitions/Partido"
+            $ref: "#/definitions/PartidoDTO"
           causasSociais:
             type: "array"
             items:
-              $ref: "#/definitions/CausaSocial"
+              $ref: "#/definitions/CausaSocialDTO"
           meiosColaboracao:
               type: "array"
               items:
-                $ref: "#/definitions/MeioColaboracao" 
-          aliadas:
-            type: "array"
-            items:
-              $ref: "#/definitions/PerfilAliada" 
+                $ref: "#/definitions/MeioColaboracaoDTO" 
           missoes:
               type: "array"
               items:
-                $ref: "#/definitions/Missoes" 
+                $ref: "#/definitions/MissoesDTO" 
           meiosContato:
             type: "array"
             items:
-              $ref: "#/definitions/MeioContato"
+              $ref: "#/definitions/MeioContatoDTO"
           
          
-  Partido:
+  PartidoDTO:
     type: "object"
     properties:
+      id:
+       type: "integer"
+       format: "int32"
       numero:
         type: "integer" 
         format: "int32" 
-      titulo: 
+      sigla: 
         type: "string"
       descricao: 
         type: "string"
   
-  Estado:
+  EstadoDTO:
     type: "object"
     properties:
       id:
@@ -738,7 +747,7 @@ definitions:
       sigla:
         type: "string"
         
-  Cidade:
+  CidadeDTO:
     type: "object"
     properties: 
       id: 
@@ -747,9 +756,9 @@ definitions:
       nome: 
         type: "string"
       estado:
-        $ref: "#/definitions/Estado"
+        $ref: "#/definitions/EstadoDTO"
     
-  LocalDeAtuacao:
+  LocalDeAtuacaoDTO:
     type: "object"
     properties:
       cidade: 
@@ -759,7 +768,7 @@ definitions:
       estadoAbreviado: 
         type: "string"
         
-  MeioContato:
+  MeioContatoDTO:
     type: "object"
     properties:
       tipo: 
@@ -771,7 +780,7 @@ definitions:
         minLength: 0
         maxLength: 200
         
-  MeioColaboracao:
+  MeioColaboracaoDTO:
     type: "object"
     properties:
       id:
@@ -786,7 +795,7 @@ definitions:
         minLength: 0
         maxLength: 300
   
-  Missoes:
+  MissoesDTO:
     type: "object"
     properties:
       titulo:
@@ -798,7 +807,7 @@ definitions:
         minLength: 0
         maxLength: 300
   
-  CausaSocial:
+  CausaSocialDTO:
     type: "object"
     properties:
       id:

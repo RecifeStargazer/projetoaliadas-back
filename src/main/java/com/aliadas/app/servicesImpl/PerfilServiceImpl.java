@@ -1,33 +1,50 @@
 package com.aliadas.app.servicesImpl;
 
+import java.util.Optional;
+
 import org.modelmapper.ModelMapper;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.aliadas.app.api.model.CausaSocial;
-import com.aliadas.app.api.model.MeioColaboracao;
-import com.aliadas.app.api.model.PerfilUsuaria;
+import com.aliadas.app.api.model.PerfilAliadaDTO;
+import com.aliadas.app.api.model.PerfilCandidataDTO;
 import com.aliadas.app.domain.Perfil;
 import com.aliadas.app.domain.PerfilAliada;
+import com.aliadas.app.domain.PerfilCandidata;
+import com.aliadas.app.domain.enums.TipoPerfil;
 import com.aliadas.app.repositories.PerfilRepository;
 import com.aliadas.app.services.PerfilService;
 
 @Service
-public class PerfilServiceImpl implements PerfilService{
+public class PerfilServiceImpl implements PerfilService {
 
-	@Autowired 
+	@Autowired
 	PerfilRepository perfilRepository;
-	
+
 	@Autowired
 	ModelMapper mapper;
-	
+
 	@Override
-	public com.aliadas.app.api.model.PerfilAliada addPerfilAliada(com.aliadas.app.api.model.PerfilAliada userProfile) {
-		mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
-		PerfilAliada perfilToSave = mapper.map(userProfile, PerfilAliada.class);
+	public PerfilAliadaDTO addPerfilAliada(PerfilAliadaDTO perfil) {
+		PerfilAliada perfilToSave = mapper.map(perfil, PerfilAliada.class);
+		perfilToSave.setTipoUsuaria(TipoPerfil.toEnum(1)); // 1 é tipo usuária = aliada
 		PerfilAliada perfilSalvo = perfilRepository.save(perfilToSave);
-		return mapper.map(perfilSalvo, com.aliadas.app.api.model.PerfilAliada.class);
+		return mapper.map(perfilSalvo, PerfilAliadaDTO.class);
+	}
+
+	@Override
+	public PerfilAliadaDTO updatePerfilAliada(PerfilAliadaDTO perfil) {
+		PerfilAliada perfilToSave = mapper.map(perfil, PerfilAliada.class);
+		perfilToSave.setTipoUsuaria(TipoPerfil.toEnum(1)); // 1 é tipo usuária = aliada
+		PerfilAliada perfilSalvo = perfilRepository.save(perfilToSave);
+		return mapper.map(perfilSalvo, PerfilAliadaDTO.class);
+	}
+
+	@Override
+	public PerfilAliadaDTO getPerfilAliada(Long idAliada) {
+		Optional<Perfil> perfilRecuperado = perfilRepository.findById(idAliada);
+		com.aliadas.app.api.model.PerfilAliadaDTO ret = mapper.map(perfilRecuperado.get(),PerfilAliadaDTO.class);
+		return ret;
 	}
 
 	@Override
@@ -43,20 +60,26 @@ public class PerfilServiceImpl implements PerfilService{
 	}
 
 	@Override
-	public PerfilUsuaria editProfile(PerfilUsuaria userProfile) {
-		// TODO Auto-generated method stub
-		return null;
+	public PerfilCandidataDTO addPerfilCandidata(PerfilCandidataDTO perfil) {
+		PerfilCandidata perfilToSave = mapper.map(perfil, PerfilCandidata.class);
+		perfilToSave.setTipoUsuaria(TipoPerfil.toEnum(2)); // 2 é tipo usuária = candidata
+		PerfilCandidata perfilSalvo = perfilRepository.save(perfilToSave);
+		return mapper.map(perfilSalvo, PerfilCandidataDTO.class);
 	}
 
 	@Override
-	public CausaSocial addCausaSocial(CausaSocial causaSocial) {
-		// TODO Auto-generated method stub
-		return null;
+	public PerfilCandidataDTO updatePerfilCandidata(PerfilCandidataDTO perfil) {
+		PerfilCandidata perfilToSave = mapper.map(perfil, PerfilCandidata.class);
+		perfilToSave.setTipoUsuaria(TipoPerfil.toEnum(2)); // 1 é tipo usuária = aliada
+		PerfilCandidata perfilSalvo = perfilRepository.save(perfilToSave);
+		return mapper.map(perfilSalvo, PerfilCandidataDTO.class);
 	}
 
 	@Override
-	public MeioColaboracao addMeioColaboracao(MeioColaboracao meioColaboracao) {
-		// TODO Auto-generated method stub
-		return null;
+	public PerfilCandidataDTO getPerfilCandidata(Long id) {
+		Optional<Perfil> perfilRecuperado = perfilRepository.findById(id);
+		PerfilCandidataDTO ret = mapper.map(perfilRecuperado.get(),PerfilCandidataDTO.class);
+		return ret;
 	}
+
 }

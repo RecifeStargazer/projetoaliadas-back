@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.aliadas.app.api.PerfilCandidataApi;
-import com.aliadas.app.api.model.PerfilCandidata;
+import com.aliadas.app.api.model.PerfilCandidataDTO;
 
 @RestController
 public class PerfilCandidataResource implements PerfilCandidataApi {
@@ -16,7 +16,7 @@ public class PerfilCandidataResource implements PerfilCandidataApi {
 	@Override
 	@RequestMapping(value = "/perfilCandidata", produces = { "application/json" }, consumes = {
 			"application/json" }, method = RequestMethod.POST)
-	public ResponseEntity<PerfilCandidata> addPerfilCandidata(@Valid PerfilCandidata perfil) {
+	public ResponseEntity<PerfilCandidataDTO> addPerfilCandidata(@Valid PerfilCandidataDTO perfil) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -24,13 +24,13 @@ public class PerfilCandidataResource implements PerfilCandidataApi {
 	@Override
 	@RequestMapping(value = "/perfilCandidata/{id}", produces = { "application/json" }, consumes = {
 			"application/json" }, method = RequestMethod.PUT)
-	public ResponseEntity<PerfilCandidata> editPerfilCandidata(Long id, @Valid PerfilCandidata perfil) {
+	public ResponseEntity<PerfilCandidataDTO> editPerfilCandidata(Long id, @Valid PerfilCandidataDTO perfil) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ResponseEntity<PerfilCandidata> getPerfilCandidata(Long idCandidata) {
+	public ResponseEntity<PerfilCandidataDTO> getPerfilCandidata(Long idCandidata) {
 		// TODO Auto-generated method stub
 		return null;
 	}
