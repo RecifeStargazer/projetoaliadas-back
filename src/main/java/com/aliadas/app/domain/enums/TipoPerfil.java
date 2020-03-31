@@ -2,7 +2,10 @@ package com.aliadas.app.domain.enums;
 
 public enum TipoPerfil {
 
-	PERFIL_ALIADA(1, "Perfil da aliada"), PERFIL_JURIDICA(2, "Perfil da aliada");
+	PERFIL_ALIADA(1, "Perfil da aliada"), 
+	PERFIL_CANDIDATA(2, "Perfil da candidata"),
+	PERFIL_ADMIN(3, "Perfil da administradora")
+	;
 
 	private int codigo;
 

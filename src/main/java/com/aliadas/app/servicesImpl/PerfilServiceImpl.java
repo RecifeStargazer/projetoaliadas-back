@@ -48,18 +48,6 @@ public class PerfilServiceImpl implements PerfilService {
 	}
 
 	@Override
-	public Void deleteProFilePhoto(Long id, String apiKey) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public String getProfileImage(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public PerfilCandidataDTO addPerfilCandidata(PerfilCandidataDTO perfil) {
 		PerfilCandidata perfilToSave = mapper.map(perfil, PerfilCandidata.class);
 		perfilToSave.setTipoUsuaria(TipoPerfil.toEnum(2)); // 2 é tipo usuária = candidata
@@ -80,6 +68,18 @@ public class PerfilServiceImpl implements PerfilService {
 		Optional<Perfil> perfilRecuperado = perfilRepository.findById(id);
 		PerfilCandidataDTO ret = mapper.map(perfilRecuperado.get(),PerfilCandidataDTO.class);
 		return ret;
+	}
+	
+	@Override
+	public Void deleteProFilePhoto(Long id, String apiKey) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getProfileImage(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
