@@ -1,0 +1,2 @@
+# projetoaliadas-back
+Meu voto será feminista, uma iniciativa para engajamento e apoio mútuo para as mulheres na política. Modelado conceitualmente com Astah e executado com springboot, jpa/hibernate  e swagger codegen para geração automática de código(DTO's/API's), e modelmapper para transformação DTO's ->Domain e vice-versa. Banco de dados mysql populado inicialmente com um arquivo data.sql para carregar todas as cidades/estados e os partidos políticos do país.
