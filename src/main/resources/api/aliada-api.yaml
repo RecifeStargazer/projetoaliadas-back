@@ -652,8 +652,12 @@ definitions:
         format: "int64"
       email:
         type: "string"
+      senha:
+        type: "string"
       nomeCompleto: 
         type: "string"
+      nomeSocial:
+            type: "string" 
       idFotoPerfil: 
         type: "integer"
         format: "int64"
@@ -698,8 +702,6 @@ definitions:
           numeroCandidata:
             type: "integer" 
             format: "int32" 
-          apelidoCandidata:
-            type: "string" 
           cargoCandidata:
             type: "string"
           partido:

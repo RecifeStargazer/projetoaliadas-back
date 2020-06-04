@@ -27,7 +27,7 @@ public class PerfilServiceImpl implements PerfilService {
 	@Override
 	public PerfilAliadaDTO addPerfilAliada(PerfilAliadaDTO perfil) {
 		PerfilAliada perfilToSave = mapper.map(perfil, PerfilAliada.class);
-		perfilToSave.setTipoUsuaria(TipoPerfil.toEnum(1)); // 1 é tipo usuária = aliada
+		perfilToSave.setTipoUsuaria(TipoPerfil.toEnum(1).getCodigo()); // 1 é tipo usuária = aliada
 		PerfilAliada perfilSalvo = perfilRepository.save(perfilToSave);
 		return mapper.map(perfilSalvo, PerfilAliadaDTO.class);
 	}
@@ -35,7 +35,7 @@ public class PerfilServiceImpl implements PerfilService {
 	@Override
 	public PerfilAliadaDTO updatePerfilAliada(PerfilAliadaDTO perfil) {
 		PerfilAliada perfilToSave = mapper.map(perfil, PerfilAliada.class);
-		perfilToSave.setTipoUsuaria(TipoPerfil.toEnum(1)); // 1 é tipo usuária = aliada
+		perfilToSave.setTipoUsuaria(TipoPerfil.toEnum(1).getCodigo()); // 1 é tipo usuária = aliada
 		PerfilAliada perfilSalvo = perfilRepository.save(perfilToSave);
 		return mapper.map(perfilSalvo, PerfilAliadaDTO.class);
 	}
@@ -50,7 +50,7 @@ public class PerfilServiceImpl implements PerfilService {
 	@Override
 	public PerfilCandidataDTO addPerfilCandidata(PerfilCandidataDTO perfil) {
 		PerfilCandidata perfilToSave = mapper.map(perfil, PerfilCandidata.class);
-		perfilToSave.setTipoUsuaria(TipoPerfil.toEnum(2)); // 2 é tipo usuária = candidata
+		perfilToSave.setTipoUsuaria(TipoPerfil.toEnum(2).getCodigo()); // 2 é tipo usuária = candidata
 		PerfilCandidata perfilSalvo = perfilRepository.save(perfilToSave);
 		return mapper.map(perfilSalvo, PerfilCandidataDTO.class);
 	}
@@ -58,7 +58,7 @@ public class PerfilServiceImpl implements PerfilService {
 	@Override
 	public PerfilCandidataDTO updatePerfilCandidata(PerfilCandidataDTO perfil) {
 		PerfilCandidata perfilToSave = mapper.map(perfil, PerfilCandidata.class);
-		perfilToSave.setTipoUsuaria(TipoPerfil.toEnum(2)); // 1 é tipo usuária = aliada
+		perfilToSave.setTipoUsuaria(TipoPerfil.toEnum(2).getCodigo()); // 1 é tipo usuária = aliada
 		PerfilCandidata perfilSalvo = perfilRepository.save(perfilToSave);
 		return mapper.map(perfilSalvo, PerfilCandidataDTO.class);
 	}

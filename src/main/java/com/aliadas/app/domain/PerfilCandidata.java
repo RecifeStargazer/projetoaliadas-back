@@ -62,11 +62,15 @@ public class PerfilCandidata extends Perfil {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PerfilCandidata(long id, TipoPerfil tipoUsuaria, String email, String nomeCompleto, String nomeSocial,
-			Integer idFotoPerfil, String descricaoPerfil, Boolean flagCompromisso, Cidade cidade) {
-		super(id, tipoUsuaria, email, nomeCompleto, nomeSocial, idFotoPerfil, descricaoPerfil, flagCompromisso, cidade);
+	
+
+	public PerfilCandidata(long id, Integer tipoUsuaria, String email, String senha, String nomeCompleto,
+			String nomeSocial, Integer idFotoPerfil, String descricaoPerfil, Boolean flagCompromisso, Cidade cidade) {
+		super(id, tipoUsuaria, email, senha, nomeCompleto, nomeSocial, idFotoPerfil, descricaoPerfil, flagCompromisso, cidade);
 		// TODO Auto-generated constructor stub
 	}
+
+
 
 	public Boolean getPrimeiraCandidatura() {
 		return primeiraCandidatura;

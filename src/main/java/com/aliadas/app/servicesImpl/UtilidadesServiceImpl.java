@@ -97,7 +97,15 @@ public class UtilidadesServiceImpl implements UtilidadeService{
 		else if(primeiraLetra!=null && !primeiraLetra.isEmpty()) {
 			pLetra = primeiraLetra.charAt(0);
 		}
-		List<Cidade> listaCidade = cidadeRepository.findByNomeStartingWithAndEstadoId(pLetra, idEstado.longValue());
+		
+		List<Cidade> listaCidade;
+		
+		if(primeiraLetra==null) {
+			listaCidade = cidadeRepository.findByEstadoId(idEstado.longValue());
+		}else {
+			listaCidade = cidadeRepository.findByNomeStartingWithAndEstadoId(pLetra, idEstado.longValue());
+		}
+		
 		Type listType = new TypeToken<List<CidadeDTO>>(){}.getType();
         List<CidadeDTO> listaCidadeRetorno = mapper.map(listaCidade, listType);
         return listaCidadeRetorno;

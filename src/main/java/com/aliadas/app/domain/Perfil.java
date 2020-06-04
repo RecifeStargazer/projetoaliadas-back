@@ -27,8 +27,10 @@ public class Perfil implements Serializable {
 	@Column(nullable=false)
 	private Integer tipoUsuaria;
 
-	//@Column(unique = true)
+	@Column(unique = true)
 	private String email;
+	
+	private String senha;
 
 	private String nomeCompleto;
 
@@ -48,12 +50,13 @@ public class Perfil implements Serializable {
 
 	}
 
-	public Perfil(long id, TipoPerfil tipoUsuaria, String email, String nomeCompleto, String nomeSocial,
+	public Perfil(long id, Integer tipoUsuaria, String email, String senha, String nomeCompleto, String nomeSocial,
 			Integer idFotoPerfil, String descricaoPerfil, Boolean flagCompromisso, Cidade cidade) {
 		super();
 		this.id = id;
-		this.tipoUsuaria = tipoUsuaria.getCodigo();
+		this.tipoUsuaria = tipoUsuaria;
 		this.email = email;
+		this.senha = senha;
 		this.nomeCompleto = nomeCompleto;
 		this.nomeSocial = nomeSocial;
 		this.idFotoPerfil = idFotoPerfil;
@@ -73,12 +76,9 @@ public class Perfil implements Serializable {
 	public Integer getTipoUsuaria() {
 		return tipoUsuaria;
 	}
-//	public TipoPerfil getTipoUsuaria() {
-//		return TipoPerfil.toEnum(tipoUsuaria);
-//	}
 
-	public void setTipoUsuaria(TipoPerfil tipoUsuaria) {
-		this.tipoUsuaria = tipoUsuaria.getCodigo();
+	public void setTipoUsuaria(Integer tipoUsuaria) {
+		this.tipoUsuaria = tipoUsuaria;
 	}
 
 	public String getEmail() {
@@ -87,6 +87,14 @@ public class Perfil implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public String getNomeCompleto() {
@@ -141,7 +149,16 @@ public class Perfil implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((cidade == null) ? 0 : cidade.hashCode());
+		result = prime * result + ((descricaoPerfil == null) ? 0 : descricaoPerfil.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((flagCompromisso == null) ? 0 : flagCompromisso.hashCode());
 		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((idFotoPerfil == null) ? 0 : idFotoPerfil.hashCode());
+		result = prime * result + ((nomeCompleto == null) ? 0 : nomeCompleto.hashCode());
+		result = prime * result + ((nomeSocial == null) ? 0 : nomeSocial.hashCode());
+		result = prime * result + ((senha == null) ? 0 : senha.hashCode());
+		result = prime * result + ((tipoUsuaria == null) ? 0 : tipoUsuaria.hashCode());
 		return result;
 	}
 
@@ -154,16 +171,63 @@ public class Perfil implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Perfil other = (Perfil) obj;
+		if (cidade == null) {
+			if (other.cidade != null)
+				return false;
+		} else if (!cidade.equals(other.cidade))
+			return false;
+		if (descricaoPerfil == null) {
+			if (other.descricaoPerfil != null)
+				return false;
+		} else if (!descricaoPerfil.equals(other.descricaoPerfil))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (flagCompromisso == null) {
+			if (other.flagCompromisso != null)
+				return false;
+		} else if (!flagCompromisso.equals(other.flagCompromisso))
+			return false;
 		if (id != other.id)
+			return false;
+		if (idFotoPerfil == null) {
+			if (other.idFotoPerfil != null)
+				return false;
+		} else if (!idFotoPerfil.equals(other.idFotoPerfil))
+			return false;
+		if (nomeCompleto == null) {
+			if (other.nomeCompleto != null)
+				return false;
+		} else if (!nomeCompleto.equals(other.nomeCompleto))
+			return false;
+		if (nomeSocial == null) {
+			if (other.nomeSocial != null)
+				return false;
+		} else if (!nomeSocial.equals(other.nomeSocial))
+			return false;
+		if (senha == null) {
+			if (other.senha != null)
+				return false;
+		} else if (!senha.equals(other.senha))
+			return false;
+		if (tipoUsuaria == null) {
+			if (other.tipoUsuaria != null)
+				return false;
+		} else if (!tipoUsuaria.equals(other.tipoUsuaria))
 			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Perfil [id=" + id + ", tipoUsuaria=" + tipoUsuaria + ", email=" + email + ", nomeCompleto="
-				+ nomeCompleto + ", nomeSocial=" + nomeSocial + ", idFotoPerfil=" + idFotoPerfil + ", descricaoPerfil="
-				+ descricaoPerfil + ", flagCompromisso=" + flagCompromisso + ", cidade=" + cidade + "]";
+		return "Perfil [id=" + id + ", tipoUsuaria=" + tipoUsuaria + ", email=" + email + ", senha=" + senha
+				+ ", nomeCompleto=" + nomeCompleto + ", nomeSocial=" + nomeSocial + ", idFotoPerfil=" + idFotoPerfil
+				+ ", descricaoPerfil=" + descricaoPerfil + ", flagCompromisso=" + flagCompromisso + ", cidade=" + cidade
+				+ "]";
 	}
 
+	
 }

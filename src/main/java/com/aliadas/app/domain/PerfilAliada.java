@@ -40,9 +40,12 @@ public class PerfilAliada extends Perfil {
 
 	}
 
-	public PerfilAliada(long id, TipoPerfil tipoUsuaria, String email, String nomeCompleto, String nomeSocial,
-			Integer idFotoPerfil, String descricaoPerfil, Boolean flagCompromisso, Cidade cidade) {
-		super(id, tipoUsuaria, email, nomeCompleto, nomeSocial, idFotoPerfil, descricaoPerfil, flagCompromisso, cidade);
+	
+
+	public PerfilAliada(long id, Integer tipoUsuaria, String email, String senha, String nomeCompleto,
+			String nomeSocial, Integer idFotoPerfil, String descricaoPerfil, Boolean flagCompromisso, Cidade cidade) {
+		super(id, tipoUsuaria, email, senha, nomeCompleto, nomeSocial, idFotoPerfil, descricaoPerfil, flagCompromisso, cidade);
+		// TODO Auto-generated constructor stub
 	}
 
 	public Boolean getFiliadaAPartido() {
